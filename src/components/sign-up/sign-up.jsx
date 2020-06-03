@@ -28,11 +28,11 @@ class SignUp extends React.Component{
 
         console.log(`displayName, ${displayName},
             email, ${email}, password, ${password}, confirmPassword, ${confirmPassword}`)
-        if(password != confirmPassword){
+        if(password !== confirmPassword){
             alert('Your password is not right')
         }else{
             try{
-                const { user } = await auth.createUserWithEmailAndPassword(email, password)
+                const { user } = await auth.signInWithEmailAndPassword(email, password)
 
                 console.log(user)
     
