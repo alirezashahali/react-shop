@@ -6,7 +6,7 @@ import SignInAndSignUp from './pages/siginandsignup/signinandsignup'
 
 import { Switch, Route } from 'react-router-dom'
 
-import { auth } from './fire-base/fire-base.utils'
+import { auth, createUserProfileDocument } from './fire-base/fire-base.utils'
 
 class App extends React.Component{
 
@@ -22,11 +22,29 @@ class App extends React.Component{
 
 
   componentDidMount(){
-    this.unsubscribFromAuth =auth.onAuthStateChanged(user => {
-      this.setState({currentUser: user});
+    this.unsubscribFromAuth =auth.onAuthStateChanged(async user => {
+      // this.setState({ currentUser: user })
+      if(user){
+        const userRef = await createUserProfileDocument(user)
+        userRef.onSnapshot( snapShot => {
+          this.setState({
+            currentUser:{
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          })
+
+          // console.log(this.state.currentUser)
+        })
+
+      }else{
+        this.setState({
+          currentUser: user
+        })
+      }
     })
 
-    console.log(this.state.currentUser)
+    // console.log(this.state.currentUser)
   }
 
   componentWillUnmount(){
