@@ -1,16 +1,16 @@
 import React from 'react';
 import './check-out.scss'
 
-import { createStructuredSelector } from 'reselect'
+// import { createStructuredSelector } from 'reselect'
 
-import { selectCartItems, selectCartItemsAllPrice } from '../../redux/cart/cart.selectors'
-import { toggleCartHidden } from '../../redux/cart/cart.actions'
+import { selectCartItems } from '../../redux/cart/cart.selectors'
+// import { toggleCartHidden, removeItem } from '../../redux/cart/cart.actions'
 
 import { connect } from 'react-redux'
 
 import CheckOutItem from '../../components/checkout-item/checkout-item'
 
-const CheckOut = ( { cartItems, overAllPrice, toggleCartHidden } ) => {
+const CheckOut = ( { cartItems, overAllPrice, toggleCartHidden, removeItem } ) => {
     // {toggleCartHidden}
 
     return (<div className="checkout-page">
@@ -45,13 +45,17 @@ const CheckOut = ( { cartItems, overAllPrice, toggleCartHidden } ) => {
     </div>)
 }
 
-const mapDispatchToProps = dispatch => (
-    {toggleCartHidden: () => dispatch(toggleCartHidden())}
-)
+// const mapDispatchToProps = dispatch => (
+//     {
+//         toggleCartHidden: () => dispatch(toggleCartHidden()),
+//         removeItem: (item) => dispatch(removeItem(item))
+//     }
+// )
 
-const mapStateToProps = createStructuredSelector({
-    cartItems: selectCartItems,
-    overAllPrice: selectCartItemsAllPrice
+const mapStateToProps = (state) => ({
+    cartItems: selectCartItems(state),
+    overAllPrice: selectCartItems(state).reduce((acc, cartItem) => (acc + (cartItem.quantity* cartItem.price)) , 0),
+    cartCount: selectCartItems(state).reduce((acc, cartItem)=> (acc + cartItem.quantity), 0)
 })
 
 export default connect(mapStateToProps)(CheckOut)

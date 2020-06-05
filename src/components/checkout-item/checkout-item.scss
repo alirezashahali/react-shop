@@ -35,5 +35,18 @@
       padding-left: 12px;
       cursor: pointer;
     }
+
+    .arrow{
+      cursor: pointer;
+      display: inline;
+
+      &:first-child{
+        margin-right: 15px;
+      }
+
+      &:last-child{
+        margin-left: 15px;
+      }
+    }
   }
   
