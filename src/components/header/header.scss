@@ -9,10 +9,15 @@
       height: 100%;
       width: 70px;
       padding: 25px;
+      cursor: default;
 
       &:focus,
       &:active{
           outline: none;
+      }
+
+      .logo{
+        cursor: pointer;
       }
     }
   
@@ -23,12 +28,13 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      cursor: pointer;
+      // cursor: pointer;
   
       .option {
         padding: 10px 15px;
         text-decoration: none;
         color: rgb(9, 7, 20);
+        cursor: pointer;
 
         &:focus,
         &:active{

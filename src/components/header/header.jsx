@@ -12,6 +12,8 @@ import CartIcon from '../cart-icon/cart-icon'
 
 import CartDropdown from '../cart-dropdown/cart-dropdown'
 
+import { selectCartHidden, selectCurrentUser } from '../../redux/user/user.selectors'
+
 const Header = ({currentUser, hidden}) => {
 
     // const link = currentUser ? <Link to="/signin" className="option">SIGNIN</Link>
@@ -45,9 +47,9 @@ const Header = ({currentUser, hidden}) => {
     </div>)
 }
 
-const mapStatetoProps = ({ user: {currentUser}, cart: {hidden} }) => ({
-    currentUser: currentUser,
-    hidden: hidden
+const mapStatetoProps = (state) => ({
+    currentUser: selectCurrentUser(state),
+    hidden: selectCartHidden(state)
 })
 
 export default connect(mapStatetoProps)(Header)
