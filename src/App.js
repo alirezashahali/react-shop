@@ -1,9 +1,11 @@
 import React from 'react';
 import HomePage from './pages/homepage/homepage'
-import ShopPage from './pages/shoppage/shop'
+// import ShopPage from './pages/shoppage/shop'
 import Header from './components/header/header'
 import SignInAndSignUp from './pages/siginandsignup/signinandsignup'
 import CheckOut from './pages/check-out/check-out'
+import CollectionsOverview from './components/collections-overview/collections-overview'
+import CollectionPage from './pages/collection/collection'
 
 import { Switch, Route, Redirect } from 'react-router-dom'
 
@@ -14,6 +16,7 @@ import { setCurrentUser } from './redux/user/user.actions'
 import { auth, createUserProfileDocument } from './fire-base/fire-base.utils'
 
 import { selectCurrentUser } from '../src/redux/user/user.selectors'
+
 
 class App extends React.Component{
 
@@ -46,16 +49,23 @@ class App extends React.Component{
     this.unsubscribFromAuth()
   }
 
+
   render(){
+
     return (
       <div>
         <Header/>
         <Switch>
-          <Route exact path="/" component={HomePage}></Route>
-          <Route exact path="/shop" component={ ShopPage }></Route>
+          <Route exact path="/">
+            <HomePage/>
+          </Route>
+          <Route exact path="/shop">
+            <CollectionsOverview />
+          </Route>
           <Route exact path="/signin" render = { () => this.props.currentUser ? 
           (<Redirect to='/' />) : (<SignInAndSignUp />) } ></Route>
           <Route exact path='/checkout' component={CheckOut}></Route>
+          <Route exact path= "/shop/:collectionId" component={CollectionPage} ></Route>
         </Switch>
       </div>
     );

@@ -10,6 +10,8 @@ import { connect } from 'react-redux'
 
 import CheckOutItem from '../../components/checkout-item/checkout-item'
 
+import StripeCheckout from '../../components/stripe-button/stripe-button'
+
 const CheckOut = ( { cartItems, overAllPrice, toggleCartHidden, removeItem } ) => {
     // {toggleCartHidden}
 
@@ -41,6 +43,10 @@ const CheckOut = ( { cartItems, overAllPrice, toggleCartHidden, removeItem } ) =
             ))
         }
         <div className='total'>TOTAL: ${overAllPrice}</div>
+
+        <div className="margin-adder">
+            <StripeCheckout price={overAllPrice}/>
+        </div>
         
     </div>)
 }
