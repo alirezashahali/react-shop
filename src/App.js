@@ -1,13 +1,11 @@
 import React from 'react';
 import HomePage from './pages/homepage/homepage'
-// import ShopPage from './pages/shoppage/shop'
+import ShopPage from './pages/shoppage/shop'
 import Header from './components/header/header'
 import SignInAndSignUp from './pages/siginandsignup/signinandsignup'
 import CheckOut from './pages/check-out/check-out'
-import CollectionsOverview from './components/collections-overview/collections-overview'
-import CollectionPage from './pages/collection/collection'
 
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 
@@ -34,15 +32,10 @@ class App extends React.Component{
               id: snapShot.id,
               ...snapShot.data()
             })
-          // console.log(this.state.currentUser)
         })
-
-      }else{
-        setCurrentUser(user)
       }
+      setCurrentUser(user)
     })
-
-    // console.log(this.state.currentUser)
   }
 
   componentWillUnmount(){
@@ -51,22 +44,20 @@ class App extends React.Component{
 
 
   render(){
-
     return (
       <div>
+      <Router>
         <Header/>
         <Switch>
           <Route exact path="/">
             <HomePage/>
           </Route>
-          <Route exact path="/shop">
-            <CollectionsOverview />
-          </Route>
           <Route exact path="/signin" render = { () => this.props.currentUser ? 
           (<Redirect to='/' />) : (<SignInAndSignUp />) } ></Route>
           <Route exact path='/checkout' component={CheckOut}></Route>
-          <Route exact path= "/shop/:collectionId" component={CollectionPage} ></Route>
+          <Route path="/shop" component={ShopPage} />
         </Switch>
+      </Router>
       </div>
     );
   }
