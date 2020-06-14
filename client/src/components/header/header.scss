@@ -1,0 +1,45 @@
+.header {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+  
+    .logo-container {
+      height: 100%;
+      width: 70px;
+      padding: 25px;
+      cursor: default;
+
+      &:focus,
+      &:active{
+          outline: none;
+      }
+
+      .logo{
+        cursor: pointer;
+      }
+    }
+  
+    .options {
+      padding: 20px;
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      // cursor: pointer;
+  
+      .option {
+        padding: 10px 15px;
+        text-decoration: none;
+        color: rgb(9, 7, 20);
+        cursor: pointer;
+
+        &:focus,
+        &:active{
+            outline: none;
+        }
+      }
+    }
+  }
